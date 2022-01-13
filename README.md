@@ -22,7 +22,7 @@ az aks get-credentials --resource-group nigelResourceGroup --name nigelAKSCluste
 ```
 Confirm all pods are running in the ```kube-system``` namespace
 ```
-kubectl get pods -A
+kubectl get pods -n kube-system
 ```
 <img width="844" alt="Screenshot 2021-12-15 at 22 13 20" src="https://user-images.githubusercontent.com/82048393/146273183-db7335e4-0147-4891-9244-fa3c822815bd.png">
 
