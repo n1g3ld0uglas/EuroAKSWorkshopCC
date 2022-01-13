@@ -3,31 +3,29 @@ This repository was created for Kubernetes security workshops <br/>
 NB: None of the scripts provided in this repo are directly supported by Tigera
 
 ## Create a node group for the cluster
-Get supported info directly from the az client through tab-completion
-```
-az aks create --l northeurope -s
-```
-Create a resource group for your cluster	
+Create an empty ```resource group``` for your cluster
 ```
 az group create --name nigelResourceGroup --location northeurope
 ```
-Transparent mode is enabled by default via CLI	
+```Transparent mode``` is enabled by default via CLI (Make sure that we are using the Azure CNI)
 ```
 az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
 
-Retrieve the AKS cluster credentials 	
+Connect your ```subscription``` to the Azure CLI (if you have not done this already):
+```
+az account set --subscription 03cfb895-akstest-4ad4-akstest-aeede8dbfc30
+```
+You can retrieve your cluster credentials and/or set the cluster ```context``` via the below command:
 ```
 az aks get-credentials --resource-group nigelResourceGroup --name nigelAKSCluster
 ```
-List the nodes in the cluster and filter on the ```failure-domain.beta.kubernetes.io/zone``` value	
+Confirm all pods are running in the ```kube-system``` namespace
 ```
-kubectl describe nodes | grep -e "Name:" -e "failure-domain.beta.kubernetes.io/zone"
+kubectl get pods -A
 ```
-This will give you a more succinct output	
-```
-kubectl get nodes -o custom-columns=NAME:'{.metadata.name}',REGION:'{.metadata.labels.topology\.kubernetes\.io/region}',ZONE:'{metadata.labels.topology\.kubernetes\.io/zone}'
-```
+<img width="844" alt="Screenshot 2021-12-15 at 22 13 20" src="https://user-images.githubusercontent.com/82048393/146273183-db7335e4-0147-4891-9244-fa3c822815bd.png">
+
 
 ## Configure Calico Cloud:
 Get your Calico Cloud installation script from the Web UI - https://qq9psbdn-management.calicocloud.io/clusters/grid
