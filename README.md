@@ -583,16 +583,17 @@ chmod +x cleaner.sh
 ```
 
 
-## Scale down your EKS Cluster
-Confirm the cluster name
+## Scale down your AKS Cluster
+Scale down cluster to 0 nodes in not in planned usage (to reduce AKS costs)
 ```
-eksctl get cluster
+az aks scale --resource-group nigelResourceGroup -name nigelAKSCluster -node-count 0
 ```
-Find the Node Group ID associated with the cluster	
+
+Alternatively, you can stop clusters
 ```
-eksctl get nodegroup --cluster nigel-eks-cluster2
+az aks stop --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
-Scale the Node Group down to 0 nodes to reduce AWS costs
+And start those clusters
 ```
-eksctl scale nodegroup --cluster nigel-eks-cluster2 --name ng-f22ea39f --nodes 0
+az aks start --name nigelAKSCluster --resource-group nigelResourceGroup
 ```
