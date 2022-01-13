@@ -2,40 +2,31 @@
 This repository was created for Kubernetes security workshops <br/>
 NB: None of the scripts provided in this repo are directly supported by Tigera
 
-## Download EKSCTL
-Download and extract the latest release of eksctl with the following command
+## Create a node group for the cluster
+Get supported info directly from the az client through tab-completion
 ```
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-``` 
-Move the extracted binary to /usr/local/bin.
+az aks create --l northeurope -s
 ```
-sudo mv /tmp/eksctl /usr/local/bin
-``` 
-Test that your installation was successful with the following command
+Create a resource group for your cluster	
 ```
-eksctl version
-``` 
-First, create an Amazon EKS cluster without any nodes
+az group create --name nigelResourceGroup --location northeurope
 ```
-eksctl create cluster  --name nigel-eks-cluster  --with-oidc  --without-nodegroup
+Transparent mode is enabled by default via CLI	
+```
+az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
 
-## Create a node group for the cluster
-Confirm regions are configured correctly:
+Retrieve the AKS cluster credentials 	
 ```
-kubectl get node -o=jsonpath='{range .items[*]}{.metadata.name}{"\tProviderId: "}{.spec.providerID}{"\n"}{end}'
+az aks get-credentials --resource-group nigelResourceGroup --name nigelAKSCluster
 ```
-Verify VPC Networking & CNI plugin is used. Confirm the aws-node pod exists on each node
+List the nodes in the cluster and filter on the ```failure-domain.beta.kubernetes.io/zone``` value	
 ```
-kubectl get pod -n kube-system -o wide
+kubectl describe nodes | grep -e "Name:" -e "failure-domain.beta.kubernetes.io/zone"
 ```
-Finally, add nodes to your EKS cluster
+This will give you a more succinct output	
 ```
-eksctl create nodegroup --cluster nigel-eks-cluster --node-type t3.xlarge --nodes=3 --nodes-min=0 --nodes-max=3 --max-pods-per-node 58
-```
-Check pod status again:  
-```
-kubectl get pod -n kube-system -o wide
+kubectl get nodes -o custom-columns=NAME:'{.metadata.name}',REGION:'{.metadata.labels.topology\.kubernetes\.io/region}',ZONE:'{metadata.labels.topology\.kubernetes\.io/zone}'
 ```
 
 ## Configure Calico Cloud:
