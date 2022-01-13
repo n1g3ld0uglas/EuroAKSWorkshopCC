@@ -34,10 +34,6 @@ Get your Calico Cloud installation script from the Web UI - https://qq9psbdn-man
 ```
 curl https://installer.calicocloud.io/*****.*****-management_install.sh | bash
 ```
-Check for cluster security group of cluster:
-```
-aws eks describe-cluster --name nigel-eks-cluster --query cluster.resourcesVpcConfig.clusterSecurityGroupId
-```
 If your cluster does not have applications, you can use the following storefront application:
 ```
 kubectl apply -f https://installer.calicocloud.io/storefront-demo.yaml
@@ -151,7 +147,7 @@ spec:
   
 ## Configuring Honeypods
 
-Create the Tigera-Internal namespace and alerts for the honeypod services:
+Create the ```Tigera-Internal``` namespace and alerts for the honeypod services:
 
 ```
 kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/common.yaml
@@ -293,9 +289,10 @@ spec:
 ```
 The report is scheduled to run at midnight of the next day (in UTC), and the benchmark items ```1.1.4```  and  ```1.2.5``` will be omitted from the results.
 
-## Securing EKS hosts:
+## Securing AKS hosts:
 
-Automatically register your nodes as Host Endpoints (HEPS). To enable automatic host endpoints, edit the default KubeControllersConfiguration instance, and set ``` spec.controllers.node.hostEndpoint.autoCreate```  to ```true``` for those ```HostEndpoints``` :
+Automatically register your nodes as Host Endpoints (HEPS). <br/>
+To enable automatic host endpoints, edit the default KubeControllersConfiguration instance, and set ``` spec.controllers.node.hostEndpoint.autoCreate```  to ```true``` for those ```HostEndpoints``` :
 
 ```
 kubectl patch kubecontrollersconfiguration default --patch='{"spec": {"controllers": {"node": {"hostEndpoint": {"autoCreate": "Enabled"}}}}}'
@@ -325,7 +322,8 @@ kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-pa
 ```
 
 #### Label based on node purpose
-To select a specific set of host endpoints (and their corresponding Kubernetes nodes), use a policy selector that selects a label unique to that set of host endpoints. For example, if we want to add the label ```environment=dev``` to nodes named node1 and node2:
+To select a specific set of host endpoints (and their corresponding Kubernetes nodes), use a policy selector that selects a label unique to that set of host endpoints. <br/>
+For example, if we want to add the label ```environment=dev``` to nodes named node1 and node2:
 
 ```
 kubectl label node ip-192-168-22-46.eu-west-1.compute.internal env=master
