@@ -35,6 +35,10 @@ CLUSTER_PREFIX='nigel-azure-aks'
 curl https://installer.calicocloud.io/NIGEL_SCRIPT-management_install.sh | sed -e "s/CLUSTER_NAME=.*$/CLUSTER_NAME=${CLUSTER_PREFIX}/1" | bash
 ```
 
+<img width="1425" alt="Screenshot 2022-01-26 at 12 25 12" src="https://user-images.githubusercontent.com/82048393/151162760-4daf7bfb-49e4-4397-b352-2882508f8d1d.png">
+
+
+
 <br/>
 <br/>
 
