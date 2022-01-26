@@ -660,9 +660,22 @@ spec:
 EOF
 ```
 
+Or simply run the below command:
+
+```
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/wireguard-metrics.yaml
+```
+
 <img width="907" alt="Screenshot 2022-01-26 at 10 52 42" src="https://user-images.githubusercontent.com/82048393/151152259-49252c42-12be-4672-83df-56da84289883.png">
 
 
+#### Disable WireGuard statistics:
+
+To disable WireGuard on all nodes modify the default Felix configuration:
+
+```
+kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardEnabled":false}}'
+```
 
 
 <br/>
