@@ -37,6 +37,15 @@ curl https://installer.calicocloud.io/NIGEL_SCRIPT-management_install.sh | sed -
 
 <img width="1425" alt="Screenshot 2022-01-26 at 12 25 12" src="https://user-images.githubusercontent.com/82048393/151162760-4daf7bfb-49e4-4397-b352-2882508f8d1d.png">
 
+You can now see the newly-running Calico Cloud pods:
+
+```
+kubectl get pods -A
+```
+
+<img width="1095" alt="Screenshot 2022-01-26 at 12 28 36" src="https://user-images.githubusercontent.com/82048393/151163147-7e22c911-d51e-4395-ac7b-342163efc03c.png">
+
+
 
 
 <br/>
