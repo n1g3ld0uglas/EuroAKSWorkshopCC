@@ -544,26 +544,37 @@ A description of the alert started with the ```anomaly_detection.job_id``` where
 
 ## Wireguard In-Transit Encryption:
 
-To begin, you will need a Kubernetes cluster with WireGuard installed on the host operating system.</br>
+Since AKS clusters already come with WireGuard installed on the host operating system, you simply need to enable to feature</br>
 https://www.tigera.io/blog/introducing-wireguard-encryption-with-calico/
-```
-sudo yum install kernel-devel-`uname -r` -y
-sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
-sudo curl -o /etc/yum.repos.d/jdoss-wireguard-epel-7.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
-sudo yum install wireguard-dkms wireguard-tools -y
-```
-Enable WireGuard encryption across all the nodes using the following command:
 ```
 kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardEnabled":true}}'
 ```
+
 To verify that the nodes are configured for WireGuard encryption:
 ```
 kubectl get node ip-192-168-30-158.eu-west-1.compute.internal -o yaml | grep Wireguard
 ```
+<img width="907" alt="Screenshot 2022-01-26 at 10 56 50" src="https://user-images.githubusercontent.com/82048393/151151803-42f7b589-909a-4213-a905-7e9965ec508c.png">
+
+
 Show how this has applied to traffic in-transit:
 ```
 sudo wg show
 ```
+
+#### Enable WireGuard statistics:
+
+To access wireguard statistics, prometheus stats in Felix configuration should be turned on. <br/>
+A quick way to do this is to enable nodeMetricsPort by apply the below manifest:
+
+```
+kubectl patch installation.operator.tigera.io default --type merge -p '{"spec":{"nodeMetricsPort":9091}}'
+```
+
+
+
+<br/>
+<br/>
 
 ## Cleaner Script (Removes unwanted policies after workshop)
 ```
