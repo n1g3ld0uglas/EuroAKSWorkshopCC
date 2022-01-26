@@ -542,6 +542,9 @@ If anomalies are detected, you see a line like this:
 
 A description of the alert started with the ```anomaly_detection.job_id``` where ```job_id``` can be found on Description page
 
+<br/>
+<br/>
+
 ## Wireguard In-Transit Encryption:
 
 Since AKS clusters already come with WireGuard installed on the host operating system, you simply need to enable to feature</br>
@@ -562,8 +565,6 @@ Show how this has applied to traffic in-transit:
 sudo wg show
 ```
 
-<br/>
-<br/>
 
 #### Enable WireGuard statistics:
 
