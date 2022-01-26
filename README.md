@@ -28,10 +28,16 @@ kubectl get pods -n kube-system
 
 
 ## Configure Calico Cloud:
-Get your Calico Cloud installation script from the Web UI - https://qq9psbdn-management.calicocloud.io/clusters/grid
+Get your Calico Cloud installation script from the Web UI - ```https://YOUR-CLUSTER-management.calicocloud.io/clusters/grid``` <br/>
+Add a custom prefix to the start of your cluster script, so that it will be easily-identifiable within the Calico Cloud UI:
 ```
-curl https://installer.calicocloud.io/*****.*****-management_install.sh | bash
+CLUSTER_PREFIX='nigel-azure-aks'
+curl https://installer.calicocloud.io/NIGEL_SCRIPT-management_install.sh | sed -e "s/CLUSTER_NAME=.*$/CLUSTER_NAME=${CLUSTER_PREFIX}/1" | bash
 ```
+
+<br/>
+<br/>
+
 If your cluster does not have applications, you can use the following storefront application:
 ```
 kubectl apply -f https://installer.calicocloud.io/storefront-demo.yaml
