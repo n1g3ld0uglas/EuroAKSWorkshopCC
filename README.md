@@ -562,6 +562,9 @@ Show how this has applied to traffic in-transit:
 sudo wg show
 ```
 
+<br/>
+<br/>
+
 #### Enable WireGuard statistics:
 
 To access wireguard statistics, prometheus stats in Felix configuration should be turned on. <br/>
@@ -570,6 +573,95 @@ A quick way to do this is to enable nodeMetricsPort by apply the below manifest:
 ```
 kubectl patch installation.operator.tigera.io default --type merge -p '{"spec":{"nodeMetricsPort":9091}}'
 ```
+
+Apply the following ```Service```, ```ServiceMonitor``` and ```NetworkPolicy``` manifests:
+
+```
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calico-prometheus-metrics
+  namespace: calico-system
+  labels:
+    k8s-app: calico-node
+spec:
+  ports:
+  - name: calico-prometheus-metrics-port
+    port: 9091
+    protocol: TCP
+  selector:
+    k8s-app: calico-node
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  generation: 1
+  labels:
+    team: network-operators
+  name: calico-node-monitor-additional
+  namespace: tigera-prometheus
+spec:
+  endpoints:
+  - bearerTokenSecret:
+      key: ""
+    honorLabels: true
+    interval: 5s
+    port: calico-prometheus-metrics-port
+    scrapeTimeout: 5s
+  namespaceSelector:
+    matchNames:
+    - calico-system
+  selector:
+    matchLabels:
+      k8s-app: calico-node
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    projectcalico.org/tier: allow-tigera
+  name: allow-tigera.prometheus-calico-node-prometheus-metrics-egress
+  namespace: tigera-prometheus
+spec:
+  egress:
+  - action: Allow
+    destination:
+      ports:
+      - 9091
+    protocol: TCP
+    source: {}
+  selector: app == 'prometheus' && prometheus == 'calico-node-prometheus'
+  tier: allow-tigera
+  types:
+  - Egress
+---
+apiVersion: crd.projectcalico.org/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    projectcalico.org/tier: allow-tigera
+  name: allow-tigera.calico-node-prometheus-metrics-ingress
+  namespace: calico-system
+spec:
+  tier: allow-tigera
+  selector: k8s-app == 'calico-node'
+  types:
+  - Ingress
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source:
+      selector: app == 'prometheus' && prometheus == 'calico-node-prometheus'
+    destination:
+      ports:
+      - 9091
+EOF
+```
+
+<img width="907" alt="Screenshot 2022-01-26 at 10 52 42" src="https://user-images.githubusercontent.com/82048393/151152259-49252c42-12be-4672-83df-56da84289883.png">
+
 
 
 
