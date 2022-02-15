@@ -284,7 +284,7 @@ kubectl get globalreporttype cis-benchmark
 ```
 
 
-In the following example, we use a GlobalReport with CIS benchmark fields to schedule and filter results.
+In the following example, we use a GlobalReport with CIS benchmark fields to schedule a ```DAILY``` report
 ```
 apiVersion: projectcalico.org/v3
 kind: GlobalReport
@@ -305,6 +305,9 @@ spec:
       exclude: ["1.1.4", "1.2.5"]
 ```
 The report is scheduled to run at midnight of the next day (in UTC), and the benchmark items ```1.1.4```  and  ```1.2.5``` will be omitted from the results.
+<br/>
+<br/>
+Set it to ```schedule: 0 * * * *```  if you wish to generate ```HOURLY``` reports.
 
 ## Securing AKS hosts:
 
