@@ -4,4 +4,6 @@ metadata:
   name: cluster-network-access
 spec:
   reportType: network-access
+  endpoints:
+    selector: app == 'frontend'
   schedule: '*/30 * * * *'
