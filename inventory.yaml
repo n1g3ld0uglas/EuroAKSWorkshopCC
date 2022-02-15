@@ -1,0 +1,7 @@
+apiVersion: projectcalico.org/v3
+kind: GlobalReport
+metadata:
+  name: cluster-inventory
+spec:
+  reportType: inventory
+  schedule: '*/30 * * * *'
