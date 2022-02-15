@@ -256,17 +256,17 @@ kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-pa
 Generate a ``` CIS Benchmark```  report: <br/>
 https://docs.tigera.io/v3.11/compliance/overview
 ```   
-kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-parter-calico-cloud/main/reporting/daily-cis-report.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/cis.yaml
 ```
 
 Generate an ```Inventory```  report
 ```  
-kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-parter-calico-cloud/main/reporting/half-hour-inventory-report.yaml
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/inventory.yaml
 ```
 
 Generate a ```Network Access```  report:
 ``` 
-kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-parter-calico-cloud/main/reporting/half-hour-network-access.yaml  
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/network.yaml 
 ```
 
 ![compliance-reporting](https://user-images.githubusercontent.com/82048393/144321272-d6303cde-18b3-434a-b2ff-d45c6d9ccece.png)
