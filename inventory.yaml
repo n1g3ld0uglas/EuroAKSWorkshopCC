@@ -4,4 +4,6 @@ metadata:
   name: cluster-inventory
 spec:
   reportType: inventory
-  schedule: '*/30 * * * *'
+  endpoints:
+    selector: app == 'frontend'
+  schedule: 0 * * * *
