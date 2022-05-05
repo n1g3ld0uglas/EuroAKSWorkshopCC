@@ -82,10 +82,9 @@ Wait until each pod has the ```STATUS``` of ```Running```.
 
 ## Configure Calico Cloud:
 Get your Calico Cloud installation script from the Web UI - ```https://YOUR-CLUSTER-management.calicocloud.io/clusters/grid``` <br/>
-Add a custom prefix to the start of your cluster script, so that it will be easily-identifiable within the Calico Cloud UI:
+Add a custom prefix in the UI - this will be easily-identifiable within the Calico Cloud UI:
 ```
-CLUSTER_PREFIX='nigel-azure-aks'
-curl https://installer.calicocloud.io/NIGEL_SCRIPT-management_install.sh | sed -e "s/CLUSTER_NAME=.*$/CLUSTER_NAME=${CLUSTER_PREFIX}/1" | bash
+kubectl apply -f https://installer.calicocloud.io/manifests/cc-operator/latest/deploy.yaml && curl -H "Authorization: Bearer ttgxoxoxo04la:tksxoxoxye8r:xoxoxoxoxox" "https://www.calicocloud.io/api/managed-cluster/deploy.yaml" | kubectl apply -f -
 ```
 
 <img width="1425" alt="Screenshot 2022-01-26 at 12 25 12" src="https://user-images.githubusercontent.com/82048393/151162760-4daf7bfb-49e4-4397-b352-2882508f8d1d.png">
