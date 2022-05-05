@@ -366,6 +366,10 @@ spec:
     - benchmarkSelection: { kubernetesVersion: "1.13" }
       exclude: ["1.1.4", "1.2.5"]
 ```
+
+<img width="1458" alt="Screenshot 2022-05-05 at 14 42 11" src="https://user-images.githubusercontent.com/82048393/166936183-96695c59-8172-4597-a92e-bd424a748696.png">
+
+
 The report is scheduled to run at midnight of the next day (in UTC), and the benchmark items ```1.1.4```  and  ```1.2.5``` will be omitted from the results.
 <br/>
 <br/>
