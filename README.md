@@ -1,8 +1,8 @@
-# Kubernetes Security Workshop | Calico Cloud (AKS)
+# Kubernetes Security Workshop | Calico Cloud on AKS with Azure-CNI
 This repository was created for Kubernetes security workshops <br/>
 NB: None of the scripts provided in this repo are directly supported by Tigera
 
-## Create a node group for the cluster
+## Create an AKS cluster with Azure-CNI enabled
 Create an empty ```resource group``` for your cluster
 ```
 az group create --name nigelResourceGroup --location northeurope
@@ -25,6 +25,59 @@ Confirm all pods are running in the ```kube-system``` namespace
 kubectl get pods -n kube-system
 ```
 <img width="844" alt="Screenshot 2021-12-15 at 22 13 20" src="https://user-images.githubusercontent.com/82048393/146273183-db7335e4-0147-4891-9244-fa3c822815bd.png">
+
+
+## Create an AKS cluster with Calico CNI enabled
+Create an Azure AKS cluster with no Kubernetes CNI pre-installed. Please refer to Bring your own CNI with AKS for details.
+
+ ### Install aks-preview extension
+ ```
+ az extension add --name aks-preview
+ ```
+ ### Update aks-preview to ensure latest version is installed
+ ```
+ az extension update --name aks-preview
+ ```
+ ### Create a resource group
+ ```
+ az group create --name my-calico-rg --location westcentralus
+ ```
+ ```
+ az aks create --resource-group my-calico-rg --name my-calico-cluster --location westcentralus --network-plugin none
+ ```
+Get credentials to allow you to access the cluster with kubectl:
+ ```
+ az aks get-credentials --resource-group my-calico-rg --name my-calico-cluster
+ ```
+Now that you have a cluster configured, you can install Calico. <br/>
+<br/>
+Install the operator.
+```
+kubectl create -f https://deploy-preview-5857--calico-master.netlify.app/manifests/tigera-operator.yaml
+```
+Configure the Calico installation.
+```
+kubectl create -f - <<EOF
+kind: Installation
+apiVersion: operator.tigera.io/v1
+metadata:
+  name: default
+spec:
+  kubernetesProvider: AKS
+  cni:
+    type: Calico
+  calicoNetwork:
+    bgp: Disabled
+    ipPools:
+     - cidr: 10.244.0.0/16
+       encapsulation: VXLAN
+EOF
+```
+Confirm that all of the pods are running with the following command.
+```
+watch kubectl get pods -n calico-system
+```
+Wait until each pod has the ```STATUS``` of ```Running```.
 
 
 ## Configure Calico Cloud:
