@@ -222,7 +222,8 @@ spec:
   
 ## Configuring Honeypods
 
-Create the ```Tigera-Internal``` namespace and alerts for the honeypod services:
+Create the ```Tigera-Internal``` namespace and alerts for the honeypod services: <br/>
+https://docs.calicocloud.io/threat/honeypod/honeypods
 
 ```
 kubectl apply -f https://docs.tigera.io/manifests/threatdef/honeypod/common.yaml
@@ -521,6 +522,10 @@ A vulnerability is a weakness in an application (for example, a design flaw or a
 The Common Vulnerabilities and Exposures (CVE) system provides publicly known information and security vulnerabilities and exposures. <br/>
 Known vulnerabilities are identified by a unique CVE ID, based on the year it was reported (for example, CVE-2021-44228). <br/>
 https://docs.calicocloud.io/image-assurance/scan-image-registries
+
+<img width="1781" alt="Screenshot 2022-05-05 at 14 30 21" src="https://user-images.githubusercontent.com/82048393/166934933-bb61e30b-8e89-49a4-8f8e-6e51eb48aacd.png">
+
+
 
 ## Calico Deep Packet Inspection
 Configuring DPI using Calico Enterprise <br/>
