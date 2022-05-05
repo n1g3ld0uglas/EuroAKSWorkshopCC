@@ -505,6 +505,14 @@ spec:
 ```
 In the above example, we schedule traffic capture for 15 minutes between 11:05 GMT and 11:25 GMT for all workload endpoints in ```storefront``` namespace.
 
+## Scan image registries for known vulnerabilities
+Image Assurances helps operators identify vulnerabilities in workloads they deploy to Kubernetes clusters. <br/>
+A vulnerability is a weakness in an application (for example, a design flaw or an implementation bug) that allows attackers to cause additional harm.<br/>
+<br/>
+The Common Vulnerabilities and Exposures (CVE) system provides publicly known information and security vulnerabilities and exposures. <br/>
+Known vulnerabilities are identified by a unique CVE ID, based on the year it was reported (for example, CVE-2021-44228). <br/>
+https://docs.calicocloud.io/image-assurance/scan-image-registries
+
 ## Calico Deep Packet Inspection
 Configuring DPI using Calico Enterprise <br/>
 Security teams need to run DPI quickly in response to unusual network traffic in clusters so they can identify potential threats. 
