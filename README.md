@@ -322,6 +322,7 @@ kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopC
 ```
 <br/>
 https://docs.calicocloud.io/compliance/overview
+
 ![compliance-reporting](https://user-images.githubusercontent.com/82048393/144321272-d6303cde-18b3-434a-b2ff-d45c6d9ccece.png)
 
 
