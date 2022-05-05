@@ -320,7 +320,8 @@ Generate a ```Network Access```  report:
 ``` 
 kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/network.yaml 
 ```
-
+<br/>
+https://docs.calicocloud.io/compliance/overview
 ![compliance-reporting](https://user-images.githubusercontent.com/82048393/144321272-d6303cde-18b3-434a-b2ff-d45c6d9ccece.png)
 
 
@@ -336,7 +337,8 @@ kubectl get globalreporttype cis-benchmark
 ```
 
 
-In the following example, we use a GlobalReport with CIS benchmark fields to schedule a ```DAILY``` report
+In the following example, we use a GlobalReport with CIS benchmark fields to schedule a ```DAILY``` report <br/>
+https://docs.calicocloud.io/compliance/compliance-reports-cis
 ```
 apiVersion: projectcalico.org/v3
 kind: GlobalReport
@@ -518,6 +520,7 @@ Configuring DPI using Calico Enterprise <br/>
 Security teams need to run DPI quickly in response to unusual network traffic in clusters so they can identify potential threats. 
 
 ### Introduce a test application:
+(If you haven't done so already)
 ```
 kubectl apply -f https://installer.calicocloud.io/storefront-demo.yaml
 ```
@@ -531,7 +534,7 @@ kubectl apply -f https://installer.calicocloud.io/rogue-demo.yaml
 
 Calico Enterprise provides an easy way to perform DPI using Snort community rules.
 
-### Create DeepPacketInspection resource: 
+## Create DeepPacketInspection resource: 
 In this example we will enable DPI on backend pod in storefront namespace:
 
 ```
@@ -659,7 +662,7 @@ A description of the alert started with the ```anomaly_detection.job_id``` where
 ## Wireguard In-Transit Encryption:
 
 Since AKS clusters already come with WireGuard installed on the host operating system, you simply need to enable to feature</br>
-https://www.tigera.io/blog/introducing-wireguard-encryption-with-calico/
+https://docs.calicocloud.io/compliance/encrypt-cluster-pod-traffic
 ```
 kubectl patch felixconfiguration default --type='merge' -p '{"spec":{"wireguardEnabled":true}}'
 ```
