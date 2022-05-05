@@ -288,7 +288,9 @@ Deploy policies for the K8 test application:
 ```
 kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-parter-calico-cloud/main/policies/test-app.yaml
 ```
-  
+
+<img width="952" alt="Screenshot 2022-05-05 at 14 45 04" src="https://user-images.githubusercontent.com/82048393/166936703-f1fa9234-f255-453e-b79b-f450444843bb.png">
+
 ## Alerting
 
 Documentation for creating ```GlobalAlert``` custom resources: <br/>
@@ -309,7 +311,10 @@ Alert on ```lateral access``` to a specific namespace:
 ```
 kubectl apply -f https://raw.githubusercontent.com/tigera-solutions/aws-howdy-parter-calico-cloud/main/alerting/lateral-access.yaml
 ``` 
-  
+
+<img width="842" alt="Screenshot 2022-05-05 at 14 43 32" src="https://user-images.githubusercontent.com/82048393/166936486-96c105be-9fac-48e4-b43c-cacfc3cc1d4b.png">
+
+
 ## Compliance Reporting
 
 Generate a ``` CIS Benchmark```  report: <br/>
