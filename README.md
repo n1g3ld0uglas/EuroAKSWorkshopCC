@@ -12,6 +12,9 @@ az group create --name nigelResourceGroup --location northeurope
 az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
 
+<img width="485" alt="Screenshot 2022-05-05 at 13 37 01" src="https://user-images.githubusercontent.com/82048393/166934411-e92c2bde-de11-46f0-8689-c806c33244b2.png">
+
+
 Connect your ```subscription``` to the Azure CLI (if you have not done this already):
 ```
 az account set --subscription 03cfb895-akstest-4ad4-akstest-aeede8dbfc30
@@ -30,15 +33,15 @@ kubectl get pods -n kube-system
 ## Create an AKS cluster with Calico CNI enabled
 Create an Azure AKS cluster with no Kubernetes CNI pre-installed. Please refer to Bring your own CNI with AKS for details.
 
- ### Install aks-preview extension
+ Install aks-preview extension
  ```
  az extension add --name aks-preview
  ```
- ### Update aks-preview to ensure latest version is installed
+ Update aks-preview to ensure latest version is installed
  ```
  az extension update --name aks-preview
  ```
- ### Create a resource group
+ Create a resource group
  ```
  az group create --name my-calico-rg --location westcentralus
  ```
@@ -78,6 +81,9 @@ Confirm that all of the pods are running with the following command.
 watch kubectl get pods -n calico-system
 ```
 Wait until each pod has the ```STATUS``` of ```Running```.
+
+<img width="485" alt="Screenshot 2022-05-05 at 13 37 11" src="https://user-images.githubusercontent.com/82048393/166934349-b656fc42-05aa-4104-96af-b5652da16269.png">
+
 
 
 ## Configure Calico Cloud:
