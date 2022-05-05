@@ -826,6 +826,9 @@ chmod +x cleaner.sh
 ./cleaner.sh
 ```
 
+Alternatively, you can just uninstall all Calico Cloud components from your Kubernetes cluster if unneeded after the workshop: <br/>
+https://docs.calicocloud.io/operations/disconnect
+
 
 ## Scale down your AKS Cluster
 Scale down cluster to 0 nodes in not in planned usage (to reduce AKS costs)
