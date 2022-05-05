@@ -3,6 +3,9 @@ This repository was created for Kubernetes security workshops <br/>
 NB: None of the scripts provided in this repo are directly supported by Tigera
 
 ## Create an AKS cluster with Azure-CNI enabled
+
+<img width="485" alt="Screenshot 2022-05-05 at 13 37 01" src="https://user-images.githubusercontent.com/82048393/166934411-e92c2bde-de11-46f0-8689-c806c33244b2.png">
+
 Create an empty ```resource group``` for your cluster
 ```
 az group create --name nigelResourceGroup --location northeurope
@@ -11,8 +14,6 @@ az group create --name nigelResourceGroup --location northeurope
 ```
 az aks create --resource-group nigelResourceGroup --name nigelAKSCluster --node-vm-size Standard_B2ms --node-count 3 --zones 1 2 3 --network-plugin azure
 ```
-
-<img width="485" alt="Screenshot 2022-05-05 at 13 37 01" src="https://user-images.githubusercontent.com/82048393/166934411-e92c2bde-de11-46f0-8689-c806c33244b2.png">
 
 
 Connect your ```subscription``` to the Azure CLI (if you have not done this already):
@@ -31,6 +32,9 @@ kubectl get pods -n kube-system
 
 
 ## Create an AKS cluster with Calico CNI enabled
+
+<img width="485" alt="Screenshot 2022-05-05 at 13 37 11" src="https://user-images.githubusercontent.com/82048393/166934349-b656fc42-05aa-4104-96af-b5652da16269.png">
+
 Create an Azure AKS cluster with no Kubernetes CNI pre-installed. Please refer to Bring your own CNI with AKS for details.
 
  Install aks-preview extension
@@ -81,8 +85,6 @@ Confirm that all of the pods are running with the following command.
 watch kubectl get pods -n calico-system
 ```
 Wait until each pod has the ```STATUS``` of ```Running```.
-
-<img width="485" alt="Screenshot 2022-05-05 at 13 37 11" src="https://user-images.githubusercontent.com/82048393/166934349-b656fc42-05aa-4104-96af-b5652da16269.png">
 
 
 
