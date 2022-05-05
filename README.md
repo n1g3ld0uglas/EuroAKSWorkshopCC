@@ -574,28 +574,57 @@ spec:
 
 ## Anomaly Detection:
 
-For the managed cluster (like Calico Cloud):
+References of all anomaly detection jobs can be found here <br/>
+https://docs.tigera.io/reference/anomaly-detection/all-detectors 
+<br/>
 
-If it is a managed cluster, you have to set up the CLUSTER_NAME environment variable. 
-``` 
-curl https://docs.tigera.io/manifests/threatdef/ad-jobs-deployment-managed.yaml -O
-``` 
+If your cluster does not have applications, you can use the following storefront application:
 
-Grab your pull secret from the ```tigera-system``` namespace:
-``` 
-kubectl get secret tigera-pull-secret -n tigera-system -o yaml > secret.yaml
-``` 
+```
+kubectl apply -f https://installer.calicocloud.io/storefront-demo.yaml
+```
 
-Swap the name of your cluster into the managed deployment manifest:
-``` 
-sed -i 's/CLUSTER_NAME/nigel-eks-cluster/g' ad-jobs-deployment-managed.yaml
-``` 
+Create a GlobalAlert of type AnomalyDetection to indicate which anomaly detector to run.
+```
+kubectl apply -f https://raw.githubusercontent.com/n1g3ld0uglas/CaliEntAnomalyDetections/main/sample-port-scan-globalalert.yaml
+```
 
-If it is a managed cluster, you have to set up the CLUSTER_NAME environment variable. </br>
-Automated the process (keep in mind the cluster name specified is - ``` nigel-eks-cluster``` 
-``` 
-kubectl apply -f ad-jobs-deployment-managed.yaml
-``` 
+Verify that a detection cronjob is created for the GlobalAlert:
+```
+kubectl get cronjobs -n tigera-intrusion-detection -l tigera.io.detector-cycle=detection
+```
+
+Verify that a training cronjob is created for the cluster:
+```
+kubectl get cronjobs -n tigera-intrusion-detection -l tigera.io.detector-cycle=training
+```
+
+Introduce the rogue application to test anomaly detection ```IP_Sweep``` alerts:
+```
+kubectl apply -f https://installer.calicocloud.io/rogue-demo.yaml -n storefront
+```
+
+Read logs for the chosen AnomalyDetection pod.
+```
+kubectl -n tigera-intrusion-detection logs <active-pod>
+```
+
+If this fails to generate alerts, run the below command: <br/>
+NB: ```Nmap``` is used to discover hosts and services on a computer network by sending packets and analyzing the responses.
+
+```
+nmap -Pn -r -p 1-1000 $POD_IP
+```
+
+If you don't have this tool installed, run the below install command:
+```
+sudo apt-get install nmap
+```
+
+Alernatively, run this command:
+```
+nmap -Pn -sS 10.69.0.30 -p 1-2000
+```
 
 To get this real pod name use:
 ``` 
