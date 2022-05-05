@@ -53,7 +53,7 @@ Now that you have a cluster configured, you can install Calico. <br/>
 <br/>
 Install the operator.
 ```
-kubectl create -f https://deploy-preview-5857--calico-master.netlify.app/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/n1g3ld0uglas/EuroAKSWorkshopCC/main/tigera-operator.yaml
 ```
 Configure the Calico installation.
 ```
